@@ -19,7 +19,13 @@ class Todo extends React.Component {
           listening: false,
           interimText: "",
           finalText: "",
-          todoList:[]
+          todoList:[
+            {
+                text: "hi this is first attempt",
+                created_at: "4 Sep 2019, 5:29 pm",
+                updated_at: "4 Sep 2019, 5:29 pm"
+            }
+          ]
         };
         this.toggleListen = this.toggleListen.bind(this)
         this.handleListen = this.handleListen.bind(this)
@@ -76,7 +82,8 @@ class Todo extends React.Component {
                     console.log('Stopped listening by voice command')
                     let todoList = this.state.todoList;
                     todoList.push({
-                        todoList: finalText
+                        text: finalText,
+                        date: moment().format('DD MMM YYYY, h:mm a')
                     });
                     this.setState({todoList: todoList})
                     }
@@ -86,10 +93,9 @@ class Todo extends React.Component {
     }
 
   render() {
-
         let listItems = this.state.todoList.map((item, index) => {
             return (
-                <p>{item.todoList}</p>
+                <p key={index}> {item.text} <br/> <small>{item.created_at}</small> </p>
             )
         })
 
