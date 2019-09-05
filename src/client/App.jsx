@@ -114,20 +114,21 @@ class App extends React.Component {
                 }
 
                 let stopCmd = transcriptArr.slice(-3, -1)
-                console.log(this.state.finalText)
-                let recordedText = this.state.finalText
 
-                if (stopCmd[0] === 'stop' && stopCmd[1] === 'listening'){
-                    recognition.stop()
+                if (stopCmd[0] === 'goodbye' && stopCmd[1] === 'Aria'){
+                    //recognition.stop()
                     recognition.onend = () => {
-                        console.log('Stopped listening by voice command')
+                        console.log('Stopped recording by voice command')
                         let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
                         let todoList = this.state.todoList
                         todoList.push({
                             text: finalText,
                             created_at: moment().format('DD MMM YYYY, h:mm a')
                         })
-                        this.setState({finalText:"", listening: false, recording:false, todoList: todoList})
+                        this.setState({finalText:"", recording: false, todoList: todoList}, () => {
+                            console.log("msg saved", this.state.listening, this.state.recording);
+                            this.handleListen()
+                        } )
                     }
                 }
             }
@@ -187,8 +188,6 @@ class App extends React.Component {
 
 
   render() {
-
-
 
 
     return (
