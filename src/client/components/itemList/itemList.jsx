@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+//-----------------IMPORT COMPONENTS---------------------
+import TodoItem from '../todoItem/todoItem';
+
+
 //------------------------COMPONENT-----------------------------
 
 class ItemList extends React.Component {
@@ -9,9 +13,12 @@ class ItemList extends React.Component {
         let listItems = this.props.todoList.map((item, index) => {
             if (!item.checked) {
                 return (
-                    <p key={index}>
-                        {item.text}<br/><small>{item.created_at}</small>
-                    </p>
+                    <TodoItem
+                        key={index}
+                        item={item}
+                        index={index}
+                        checkItem={this.props.checkItem}>
+                    </TodoItem>
                 )
             }
         });
@@ -30,5 +37,6 @@ class ItemList extends React.Component {
 export default ItemList;
 
 ItemList.propTypes = {
-  todoList: PropTypes.array
+  todoList: PropTypes.array,
+  checkItem: PropTypes.func
 };

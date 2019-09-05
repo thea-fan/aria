@@ -129,7 +129,8 @@ class App extends React.Component {
             toggleListen = {this.toggleListen}>
         </Listener>
         <ItemList
-            todoList = {this.state.todoList}>
+            todoList = {this.state.todoList}
+            checkItem = {this.checkItem}>
         </ItemList>
       </div>
     );
