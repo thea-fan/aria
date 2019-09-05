@@ -1,7 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import styles from './style.scss';
-import Todo from './components/todo/todo';
+import Listener from './components/listener/listener';
 
 
 
@@ -17,7 +17,7 @@ class App extends React.Component {
 
     return (
       <div className={styles.container}>
-        <Todo />
+        <Listener />
       </div>
     );
   }

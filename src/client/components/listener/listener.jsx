@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './style.scss';
+import moment from 'moment';
 
 //-----------------SPEECH RECOGNITION SETUP---------------------
 
@@ -21,7 +22,7 @@ class Todo extends React.Component {
           finalText: "",
           todoList:[
             {
-                text: "hi this is first attempt",
+                text: "Hi this is first attempt",
                 created_at: "4 Sep 2019, 5:29 pm",
                 updated_at: "4 Sep 2019, 5:29 pm"
             }
@@ -37,17 +38,16 @@ class Todo extends React.Component {
 
 
     handleListen(){
-        console.log('listening?', this.state.listening)
+        console.log('listening?', this.state.listening);
 
         if (this.state.listening) {
-          recognition.start()
+          recognition.start();
           recognition.onend = () => {
             console.log("...user is pausing, continue listening...")
-            recognition.start()
-          }
-
+            recognition.start();
+          };
         } else {
-          recognition.stop()
+          recognition.stop();
           recognition.onend = () => {
             console.log("Stopped listening by click")
           }
@@ -57,35 +57,33 @@ class Todo extends React.Component {
           console.log("Start Listening!")
         }
 
-        let finalTranscript = ''
-        recognition.onresult = event => {
-        let interimTranscript = ''
 
+            let finalTranscript = '';
+
+        recognition.onresult = event => {
+        let interimTranscript = '';
             for (let i = event.resultIndex; i < event.results.length; i++) {
-                const transcript = event.results[i][0].transcript
+                let transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal){
                     finalTranscript += transcript + ' '
                 } else {
                     interimTranscript += transcript
                 }
-                this.setState({interimText:interimTranscript})
-                this.setState({finalText:finalTranscript})
-                const transcriptArr = finalTranscript.split(' ')
-                const stopCmd = transcriptArr.slice(-3, -1)
+                this.setState({interimText:interimTranscript, finalText:finalTranscript})
+                let transcriptArr = finalTranscript.split(' ');
+                let stopCmd = transcriptArr.slice(-3, -1);
 
                 if (stopCmd[0] === 'stop' && stopCmd[1] === 'listening'){
-                    recognition.stop()
+                    recognition.stop();
                     recognition.onend = () => {
-                    const finalText = transcriptArr.slice(0, -3).join(' ')
-                    this.setState({finalText:finalText})
-                    this.setState({listening: false});
-                    console.log('Stopped listening by voice command')
-                    let todoList = this.state.todoList;
-                    todoList.push({
-                        text: finalText,
-                        date: moment().format('DD MMM YYYY, h:mm a')
-                    });
-                    this.setState({todoList: todoList})
+                        console.log('Stopped listening by voice command');
+                        let finalText = transcriptArr.slice(0, -3).join(' ')
+                        let todoList = this.state.todoList;
+                        todoList.push({
+                            text: finalText,
+                            created_date: moment().format('DD MMM YYYY, h:mm a')
+                        });
+                        this.setState({finalText:finalText, listening: false, todoList: todoList})
                     }
                 }
             }
@@ -95,7 +93,7 @@ class Todo extends React.Component {
   render() {
         let listItems = this.state.todoList.map((item, index) => {
             return (
-                <p key={index}> {item.text} <br/> <small>{item.created_at}</small> </p>
+                <p key={index}> • <input type="checkbox" /> {item.text} <br/> <small>{item.created_date}</small> </p>
             )
         })
 
