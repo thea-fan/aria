@@ -28,6 +28,7 @@ class App extends React.Component {
           listening: false,
           interimText: "",
           finalText: "",
+          editing: false,
           todoList:[
             {
                 text: "Hi this is first attempt",
@@ -41,8 +42,7 @@ class App extends React.Component {
                 updated_at: "5 Sep 2019, 12:29 pm",
                 checked: false
             }
-          ],
-          editing: false
+          ]
         };
         this.toggleListen = this.toggleListen.bind(this)
         this.handleListen = this.handleListen.bind(this)
@@ -127,12 +127,12 @@ class App extends React.Component {
     }
 
     editItem(index){
-        let list = this.state.list;
+        let list = this.state.todoList;
         if (!this.state.editing) {
             list[index].editing = true;
             this.setState({
-                list: list,
-                wordEdit: list[index].todo,
+                todoList: list,
+                todoItem: list[index].text,
                 editing: true
             });
         }
@@ -140,8 +140,8 @@ class App extends React.Component {
             if (list[index].editing) {
                 list[index].editing = false;
                 this.setState({
-                    list: list,
-                    wordEdit: "",
+                    todoList: list,
+                    todoItem: "",
                     editing: false
                 });
             }
@@ -149,13 +149,13 @@ class App extends React.Component {
     }
 
     updateItem(event,index,word) {
-        e.preventDefault();
-        let list = this.state.list;
-        list[index].todo = word;
+        event.preventDefault();
+        let list = this.state.todoList;
+        list[index].text = word;
         list[index].updated_at = moment().format('DD MMM YYYY, h:mm a');
         list[index].editing = false;
         this.setState({
-            list: list,
+            todoList: list,
             editing: false
         });
     }

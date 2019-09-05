@@ -15,17 +15,18 @@ class TodoItem extends React.Component {
             checkboxClass = <input type="checkbox" onChange={() => {this.props.checkItem(index)}} checked/>;
         }
 
+        let itemDisplay = <span>{checkboxClass} {item.text}</span>;
+
         if (item.editing) {
             itemDisplay = (
-                <TodoItemEdit
+                <EditTodoItem
                     index={index}
                     todoItem={this.props.item.text}
                     updateItem={this.props.updateItem}>
-                </TodoItemEdit>
+                </EditTodoItem>
             );
         }
 
-        let itemDisplay = <span>{checkboxClass} {item.text}</span>;
         return (
             <div>
                 <p>
@@ -44,6 +45,8 @@ export default TodoItem;
 TodoItem.propTypes = {
   index: PropTypes.number,
   item: PropTypes.object,
+  todoItem: PropTypes.string,
+  updateItem: PropTypes.func,
   checkItem: PropTypes.func,
   editItem: PropTypes.func,
   removeItem: PropTypes.func

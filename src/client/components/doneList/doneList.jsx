@@ -15,7 +15,10 @@ class DoneList extends React.Component {
                         key={index}
                         item={item}
                         index={index}
-                        checkItem={this.props.checkItem}>
+                        checkItem={this.props.checkItem}
+                        editItem={this.props.editItem}
+                        updateItem={this.props.updateItem}
+                        removeItem={this.props.removeItem}>
                     </TodoItem>
                 )
             }
@@ -37,7 +40,11 @@ class DoneList extends React.Component {
 export default DoneList;
 
 DoneList.propTypes = {
+  todoList: PropTypes.array,
   index: PropTypes.number,
   item: PropTypes.object,
-  checkItem: PropTypes.func
+  updateItem: PropTypes.func,
+  checkItem: PropTypes.func,
+  editItem: PropTypes.func,
+  removeItem: PropTypes.func
 };

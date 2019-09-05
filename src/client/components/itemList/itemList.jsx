@@ -41,5 +41,8 @@ export default ItemList;
 
 ItemList.propTypes = {
   todoList: PropTypes.array,
-  checkItem: PropTypes.func
+  checkItem: PropTypes.func,
+  updateItem: PropTypes.func,
+  editItem: PropTypes.func,
+  removeItem: PropTypes.func
 };
