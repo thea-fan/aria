@@ -62,7 +62,7 @@ class App extends React.Component {
                 text: this.state.finalText,
                 created_at: moment().format('DD MMM YYYY, h:mm a')
             })
-            this.setState({todoList: todoList})
+            this.setState({todoList: todoList, finalText:""})
           }
         }
 
@@ -96,7 +96,7 @@ class App extends React.Component {
                             text: finalText,
                             created_at: moment().format('DD MMM YYYY, h:mm a')
                         })
-                        this.setState({finalText:finalText, listening: false, todoList: todoList})
+                        this.setState({finalText:"", listening: false, todoList: todoList})
                     }
                 }
             }
