@@ -6,6 +6,7 @@ import moment from 'moment';
 //-----------------IMPORT COMPONENTS---------------------
 import Listener from './components/listener/listener';
 import ItemList from './components/itemList/itemList';
+import DoneList from './components/doneList/doneList';
 
 
 //-----------------SPEECH RECOGNITION SETUP---------------------
@@ -33,11 +34,18 @@ class App extends React.Component {
                 created_at: "4 Sep 2019, 5:29 pm",
                 updated_at: "4 Sep 2019, 5:29 pm",
                 checked: false
+            },
+            {
+                text: "second attempt",
+                created_at: "5 Sep 2019, 12:29 pm",
+                updated_at: "5 Sep 2019, 12:29 pm",
+                checked: false
             }
           ]
         };
         this.toggleListen = this.toggleListen.bind(this)
         this.handleListen = this.handleListen.bind(this)
+        this.checkItem = this.checkItem.bind(this);
     }
 
     toggleListen() {
@@ -132,6 +140,10 @@ class App extends React.Component {
             todoList = {this.state.todoList}
             checkItem = {this.checkItem}>
         </ItemList>
+        <DoneList
+            todoList={this.state.todoList}
+            checkItem={this.checkItem}>
+        </DoneList>
       </div>
     );
   }

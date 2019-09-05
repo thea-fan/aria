@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 //-----------------IMPORT COMPONENTS---------------------
 import TodoItem from '../todoItem/todoItem';
 
-
 //------------------------COMPONENT-----------------------------
 
-class ItemList extends React.Component {
-
-  render() {
+class DoneList extends React.Component {
+    render() {
         let listItems = this.props.todoList.map((item, index) => {
-            if (!item.checked) {
+            if (item.checked) {
                 return (
                     <TodoItem
                         key={index}
@@ -23,10 +21,12 @@ class ItemList extends React.Component {
             }
         });
         return (
-            <div>
-                <h4>To-do Items</h4>
-                <div>
-                    {listItems}
+            <div className="checklist-current">
+                <h4>Done Items</h4>
+                <div className="list">
+                    <ul className="list-group">
+                        {listItems}
+                    </ul>
                 </div>
             </div>
         )
@@ -34,9 +34,10 @@ class ItemList extends React.Component {
 }
 
 
-export default ItemList;
+export default DoneList;
 
-ItemList.propTypes = {
-  todoList: PropTypes.array,
+DoneList.propTypes = {
+  index: PropTypes.number,
+  item: PropTypes.object,
   checkItem: PropTypes.func
 };

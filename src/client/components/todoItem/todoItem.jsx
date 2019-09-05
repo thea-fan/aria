@@ -7,9 +7,9 @@ class TodoItem extends React.Component {
     render() {
         let index=this.props.index;
         let item=this.props.item;
-        let checkboxClass = <input type="checkbox" onClick={() => {this.props.checkItem(index)}}/>;
+        let checkboxClass = <input type="checkbox" onChange={() => {this.props.checkItem(index)}} />;
         if (item.checked) {
-            checkboxClass = <input type="checkbox" onClick={() => {this.props.checkItem(index)}} checked/>;
+            checkboxClass = <input type="checkbox" onChange={() => {this.props.checkItem(index)}} checked/>;
         }
 
         let itemDisplay = <span>{checkboxClass} {item.text}</span>;
