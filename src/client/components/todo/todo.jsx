@@ -18,7 +18,8 @@ class Todo extends React.Component {
         this.state = {
           listening: false,
           interimText: "",
-          finalText: ""
+          finalText: "",
+          todoList:[]
         };
         this.toggleListen = this.toggleListen.bind(this)
         this.handleListen = this.handleListen.bind(this)
@@ -73,6 +74,11 @@ class Todo extends React.Component {
                     this.setState({finalText:finalText})
                     this.setState({listening: false});
                     console.log('Stopped listening by voice command')
+                    let todoList = this.state.todoList;
+                    todoList.push({
+                        todoList: finalText
+                    });
+                    this.setState({todoList: todoList})
                     }
                 }
             }
@@ -80,11 +86,22 @@ class Todo extends React.Component {
     }
 
   render() {
+
+        let listItems = this.state.todoList.map((item, index) => {
+            return (
+                <p>{item.todoList}</p>
+            )
+        })
+
     return (
         <div>
             <button style={{background: this.state.listening? "Salmon" : "lightblue"}}id='microphone-btn' className={styles.button} onClick={this.toggleListen}>Listen</button>
             <div className={styles.interim}>{this.state.interimText}</div>
             <div className={styles.final}>{this.state.finalText}</div>
+            <div>
+                {listItems}
+            </div>
+
         </div>
     );
   }
