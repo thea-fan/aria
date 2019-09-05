@@ -41,11 +41,15 @@ class App extends React.Component {
                 updated_at: "5 Sep 2019, 12:29 pm",
                 checked: false
             }
-          ]
+          ],
+          editing: false
         };
         this.toggleListen = this.toggleListen.bind(this)
         this.handleListen = this.handleListen.bind(this)
         this.checkItem = this.checkItem.bind(this);
+        this.editItem = this.editItem.bind(this);
+        this.updateItem = this.updateItem.bind(this);
+        this.removeItem = this.removeItem.bind(this);
     }
 
     toggleListen() {
@@ -122,6 +126,46 @@ class App extends React.Component {
         this.setState({todoList: todoList});
     }
 
+    editItem(index){
+        let list = this.state.list;
+        if (!this.state.editing) {
+            list[index].editing = true;
+            this.setState({
+                list: list,
+                wordEdit: list[index].todo,
+                editing: true
+            });
+        }
+        else {
+            if (list[index].editing) {
+                list[index].editing = false;
+                this.setState({
+                    list: list,
+                    wordEdit: "",
+                    editing: false
+                });
+            }
+        }
+    }
+
+    updateItem(event,index,word) {
+        e.preventDefault();
+        let list = this.state.list;
+        list[index].todo = word;
+        list[index].updated_at = moment().format('DD MMM YYYY, h:mm a');
+        list[index].editing = false;
+        this.setState({
+            list: list,
+            editing: false
+        });
+    }
+
+    removeItem(index) {
+        let list = this.state.todoList;
+        list.splice(index, 1);
+        this.setState({todoList: list});
+    }
+
 
   render() {
 
@@ -138,11 +182,17 @@ class App extends React.Component {
         </Listener>
         <ItemList
             todoList = {this.state.todoList}
-            checkItem = {this.checkItem}>
+            checkItem = {this.checkItem}
+            editItem = {this.editItem}
+            updateItem = {this.updateItem}
+            removeItem = {this.removeItem}>
         </ItemList>
         <DoneList
-            todoList={this.state.todoList}
-            checkItem={this.checkItem}>
+            todoList = {this.state.todoList}
+            checkItem = {this.checkItem}
+            editItem = {this.editItem}
+            updateItem = {this.updateItem}
+            removeItem = {this.removeItem}>
         </DoneList>
       </div>
     );

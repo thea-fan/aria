@@ -17,7 +17,10 @@ class ItemList extends React.Component {
                         key={index}
                         item={item}
                         index={index}
-                        checkItem={this.props.checkItem}>
+                        checkItem={this.props.checkItem}
+                        editItem={this.props.editItem}
+                        updateItem={this.props.updateItem}
+                        removeItem={this.props.removeItem}>
                     </TodoItem>
                 )
             }
