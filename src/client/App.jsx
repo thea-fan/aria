@@ -3,6 +3,8 @@ import { hot } from 'react-hot-loader';
 import styles from './style.scss';
 import moment from 'moment';
 
+let localStorage = [];
+
 //-----------------IMPORT COMPONENTS---------------------
 import Listener from './components/listener/listener';
 import ItemList from './components/itemList/itemList';
@@ -53,6 +55,12 @@ class App extends React.Component {
         this.removeItem = this.removeItem.bind(this);
     }
 
+    componentDidMount() {
+    console.log(window.localStorage)
+    localStorage = JSON.parse(window.localStorage.getItem('todoList'));
+    this.setState({todoList: localStorage});
+  }
+
     toggleListen() {
         this.setState({listening: !this.state.listening}, this.handleListen)
     }
@@ -79,7 +87,9 @@ class App extends React.Component {
                 text: this.state.finalText,
                 created_at: moment().format('DD MMM YYYY, h:mm a')
             })
-            this.setState({todoList: todoList, finalText:""})
+            this.setState({todoList: todoList, finalText:""}, () => {
+                window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+            })
           }
         }
 
@@ -127,8 +137,10 @@ class App extends React.Component {
                         })
                         this.setState({finalText:"", recording: false, todoList: todoList}, () => {
                             console.log("msg saved", this.state.listening, this.state.recording);
-                            this.handleListen()
+                            window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                            this.handleListen();
                         } )
+                        // ls.set({todoList: todoList})
                     }
                 }
             }
