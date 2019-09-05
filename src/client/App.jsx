@@ -57,6 +57,12 @@ class App extends React.Component {
           recognition.stop()
           recognition.onend = () => {
             console.log("Stopped listening by click")
+            let todoList = this.state.todoList
+            todoList.push({
+                text: this.state.finalText,
+                created_at: moment().format('DD MMM YYYY, h:mm a')
+            })
+            this.setState({todoList: todoList})
           }
         }
 
