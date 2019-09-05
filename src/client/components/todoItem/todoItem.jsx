@@ -29,11 +29,11 @@ class TodoItem extends React.Component {
 
         return (
             <div>
-                <p>
+                <div>
                 {itemDisplay} <br/> <small>Posted on {item.created_at}</small>
                 <button onClick={() => {this.props.editItem(index)}}>Edit</button>
                 <button onClick={() => {this.props.removeItem(index)}}>Delete</button>
-                </p>
+                </div>
             </div>
         )
     }

@@ -25,6 +25,7 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
+          recording: false,
           listening: false,
           interimText: "",
           finalText: "",
@@ -59,6 +60,10 @@ class App extends React.Component {
     handleListen(){
         console.log('listening?', this.state.listening);
 
+        // recognition.onstart = () => {
+        //   console.log("Start Listening!")
+        // }
+
         if (this.state.listening) {
           recognition.start()
           recognition.onend = () => {
@@ -78,11 +83,6 @@ class App extends React.Component {
           }
         }
 
-        recognition.onstart = () => {
-          console.log("Start Listening!")
-        }
-
-
         let finalTranscript = '';
 
         recognition.onresult = event => {
@@ -94,21 +94,40 @@ class App extends React.Component {
                 } else {
                     interimTranscript += transcript
                 }
-                this.setState({interimText:interimTranscript, finalText:finalTranscript})
+
                 let transcriptArr = finalTranscript.split(' ')
+
+
+                let ariaIndex;
+
+                if (transcriptArr.includes("hello")) {
+                    console.log(transcriptArr)
+                    let helloIndex = transcriptArr.lastIndexOf("hello")
+                    ariaIndex = helloIndex+2
+                    let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
+                    if (startCmd[0] === 'hello' && startCmd[1] === 'Aria'){
+                        let recordedText = transcriptArr.slice(ariaIndex).join(' ')
+                        console.log(recordedText)
+                        this.setState({interimText:interimTranscript, finalText:recordedText, recording:true})
+                        console.log('recording?', this.state.recording)
+                    }
+                }
+
                 let stopCmd = transcriptArr.slice(-3, -1)
+                console.log(this.state.finalText)
+                let recordedText = this.state.finalText
 
                 if (stopCmd[0] === 'stop' && stopCmd[1] === 'listening'){
                     recognition.stop()
                     recognition.onend = () => {
                         console.log('Stopped listening by voice command')
-                        let finalText = transcriptArr.slice(0, -3).join(' ')
+                        let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
                         let todoList = this.state.todoList
                         todoList.push({
                             text: finalText,
                             created_at: moment().format('DD MMM YYYY, h:mm a')
                         })
-                        this.setState({finalText:"", listening: false, todoList: todoList})
+                        this.setState({finalText:"", listening: false, recording:false, todoList: todoList})
                     }
                 }
             }
@@ -175,7 +194,7 @@ class App extends React.Component {
     return (
       <div className={styles.container}>
         <Listener
-            listening = {this.state.listening}
+            recording = {this.state.recording}
             interimText = {this.state.interimText}
             finalText = {this.state.finalText}
             toggleListen = {this.toggleListen}>

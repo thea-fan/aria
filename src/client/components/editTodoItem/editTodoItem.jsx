@@ -33,7 +33,6 @@ class EditTodoItem extends React.Component {
         }
     }
     render(){
-        let index=this.props.index;
         let errorMessage = null;
         if (!this.state.validated) {
             errorMessage = <div role="alert">
