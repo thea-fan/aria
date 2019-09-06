@@ -43,7 +43,7 @@ clickHandler() {
                 <div id = 'microphone' className = {className}
                 style={{backgroundImage: this.props.recording? "url('https://image.flaticon.com/icons/svg/1361/1361878.svg')" : "url('https://image.flaticon.com/icons/svg/1361/1361730.svg')",
                         width: this.props.recording? '5.5rem' : '2.5rem',
-                        height: this.props.recording? '5.5rem' : '2.5rem',
+                        height: this.props.recording? '5.5rem' : '2.5rem'
                     }}
                 onClick={this.clickHandler}></div>
             </nav>

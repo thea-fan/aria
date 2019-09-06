@@ -1,0 +1,81 @@
+
+.waveWrapper {
+	overflow: hidden;
+	position: absolute;
+	z-index: -100;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	margin: auto;
+}
+
+.waveWrapperInner {
+	position: absolute;
+	width: 100%;
+	overflow: hidden;
+	height: 100%;
+	bottom: -1px;
+	background-image: linear-gradient(to top, #d5ddec 20%, #dddbff 80%);
+}
+
+.bgTop {
+	z-index: -5;
+	opacity: 0.5;
+}
+.bgMiddle {
+	z-index: -10;
+	opacity: 0.75;
+}
+.bgBottom {
+	z-index: -15;
+}
+.wave {
+	position: absolute;
+	left: 0;
+	width: 200%;
+	height: 100%;
+	background-repeat: repeat no-repeat;
+	background-position: 0 bottom;
+	transform-origin: center bottom;
+}
+.waveTop {
+	background-size: 50% 100px;
+	background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png');
+	background-size: inherit;
+}
+.waveAnimation .waveTop {
+  animation: movewave 10s linear infinite;
+   animation-delay: 1s;
+}
+.waveMiddle {
+	background-size: 50% 120px;
+	background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png');
+	background-size: inherit;
+}
+.waveAnimation .waveMiddle {
+	animation: movewave 10s linear infinite;
+}
+.waveBottom {
+	background-size: 50% 100px;
+	background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png');
+	background-size: inherit;
+}
+.waveAnimation .waveBottom {
+	animation: movewave 15s linear infinite;
+}
+
+@keyframes movewave {
+	0% {
+		transform: translateX(0) translateZ(0) scaleY(0.8)
+	}
+	25% {
+		transform: translateX(-25%) translateZ(0) scaleY(0.35)
+	}
+	75% {
+		transform: translateX(-50%) translateZ(0) scaleY(0.8)
+	}
+	100% {
+		transform: translateX(-25%) translateZ(0) scaleY(0.35)
+	}
+}

@@ -7,6 +7,7 @@ import moment from 'moment';
 let localStorage = [];
 
 //-----------------IMPORT COMPONENTS---------------------
+import Bckground from './components/bckground/bckground';
 import Navbar from './components/navbar/navbar';
 import Listener from './components/listener/listener';
 import ItemList from './components/itemList/itemList';
@@ -215,6 +216,7 @@ class App extends React.Component {
 
     return (
       <div className={styles.container}>
+        <Bckground />
         <Listener
             interimText = {this.state.interimText}
             finalText = {this.state.finalText}>
