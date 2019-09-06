@@ -43,7 +43,7 @@ class App extends React.Component {
                 text: "second attempt",
                 created_at: "5 Sep 2019, 12:29 pm",
                 updated_at: "5 Sep 2019, 12:29 pm",
-                checked: false
+                checked: true
             }
           ]
         };
@@ -56,8 +56,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-    console.log(window.localStorage)
-    localStorage = JSON.parse(window.localStorage.getItem('todoList'));
+    localStorage = JSON.parse(window.localStorage.getItem('todoList')) || this.state.todoList;
     this.setState({todoList: localStorage});
   }
 
@@ -85,7 +84,9 @@ class App extends React.Component {
             let todoList = this.state.todoList
             todoList.push({
                 text: this.state.finalText,
-                created_at: moment().format('DD MMM YYYY, h:mm a')
+                created_at: moment().format('DD MMM YYYY, h:mm a'),
+                updated_at: moment().format('DD MMM YYYY, h:mm a'),
+                checked: false
             })
             this.setState({todoList: todoList, finalText:""}, () => {
                 window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
@@ -107,7 +108,6 @@ class App extends React.Component {
 
                 let transcriptArr = finalTranscript.split(' ')
 
-
                 let ariaIndex;
 
                 if (transcriptArr.includes("hello")) {
@@ -117,7 +117,6 @@ class App extends React.Component {
                     let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
                     if (startCmd[0] === 'hello' && startCmd[1] === 'Aria'){
                         let recordedText = transcriptArr.slice(ariaIndex).join(' ')
-                        console.log(recordedText)
                         this.setState({interimText:interimTranscript, finalText:recordedText, recording:true})
                         console.log('recording?', this.state.recording)
                     }
@@ -132,11 +131,12 @@ class App extends React.Component {
                         let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
                         let todoList = this.state.todoList
                         todoList.push({
-                            text: finalText,
-                            created_at: moment().format('DD MMM YYYY, h:mm a')
+                            text: this.state.finalText,
+                            created_at: moment().format('DD MMM YYYY, h:mm a'),
+                            updated_at: moment().format('DD MMM YYYY, h:mm a'),
+                            checked: false
                         })
                         this.setState({finalText:"", recording: false, todoList: todoList}, () => {
-                            console.log("msg saved", this.state.listening, this.state.recording);
                             window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
                             this.handleListen();
                         } )
@@ -155,7 +155,9 @@ class App extends React.Component {
         else {
             todoList[index].checked = true;
         }
-        this.setState({todoList: todoList});
+        this.setState({todoList: todoList}, () => {
+            window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+        })
     }
 
     editItem(index){
@@ -182,20 +184,25 @@ class App extends React.Component {
 
     updateItem(event,index,word) {
         event.preventDefault();
-        let list = this.state.todoList;
-        list[index].text = word;
-        list[index].updated_at = moment().format('DD MMM YYYY, h:mm a');
-        list[index].editing = false;
+        let todoList = this.state.todoList;
+        todoList[index].text = word;
+        todoList[index].updated_at = moment().format('DD MMM YYYY, h:mm a');
+        todoList[index].editing = false;
         this.setState({
-            todoList: list,
+            todoList: todoList,
             editing: false
-        });
+        }, () => {
+            window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+        })
     }
 
     removeItem(index) {
-        let list = this.state.todoList;
-        list.splice(index, 1);
-        this.setState({todoList: list});
+        let todoList = this.state.todoList;
+        todoList.splice(index, 1);
+        this.setState({todoList: todoList}, () => {
+            window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+        })
+
     }
 
 

@@ -7,6 +7,22 @@ import EditTodoItem from '../editTodoItem/editTodoItem';
 //------------------------COMPONENT-----------------------------
 
 class TodoItem extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            checked: this.props.checkItem
+        };
+        this.checkItem=this.checkItem.bind(this);
+    }
+
+    checkItem(event){
+        event.preventDefault();
+        if (this.state.checked) {
+            this.props.checkItem(event, this.props.index, this.state.checked)
+        }
+    }
+
     render() {
         let index=this.props.index;
         let item=this.props.item;
