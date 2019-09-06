@@ -1,0 +1,29 @@
+.microphone{
+	width: 2.5rem;
+	height:2.5rem;
+	background-image: url('https://image.flaticon.com/icons/svg/1361/1361730.svg');
+	background-size: cover
+}
+
+.listeningAnimation{
+	animation: pulse 2s infinite;
+	width: 2.5rem;
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(224, 108, 99, 0.6);
+    box-shadow: 0 0 0 0 rgba(224, 108, 99, 0.6);
+    transform: scale(1);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 14px rgba(224, 108, 99, 0);
+      box-shadow: 0 0 0 14px rgba(224, 108, 99, 0);
+      transform: scale(1.2);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(224, 108, 99, 0);
+      box-shadow: 0 0 0 0 rgba(224, 108, 99, 0);
+      transform: scale(1);
+  }
+}

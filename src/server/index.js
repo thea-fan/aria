@@ -20,6 +20,7 @@ const setupAppRoutes =
 
 const app = express();
 
+
 app.set('env', process.env.NODE_ENV);
 
 // Set up middleware

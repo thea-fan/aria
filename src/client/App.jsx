@@ -1,11 +1,13 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import styles from './style.scss';
+import { Route, Link } from "react-router-dom";
 import moment from 'moment';
 
 let localStorage = [];
 
 //-----------------IMPORT COMPONENTS---------------------
+import Navbar from './components/navbar/navbar';
 import Listener from './components/listener/listener';
 import ItemList from './components/itemList/itemList';
 import DoneList from './components/doneList/doneList';
@@ -61,6 +63,7 @@ class App extends React.Component {
   }
 
     toggleListen() {
+        console.log("entered")
         this.setState({listening: !this.state.listening}, this.handleListen)
     }
 
@@ -88,9 +91,10 @@ class App extends React.Component {
                 updated_at: moment().format('DD MMM YYYY, h:mm a'),
                 checked: false
             })
-            this.setState({todoList: todoList, finalText:""}, () => {
+            this.setState({todoList: todoList, finalText:"", recording:false}, () => {
                 window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
             })
+            console.log('recording?', this.state.recording)
           }
         }
 
@@ -131,7 +135,7 @@ class App extends React.Component {
                         let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
                         let todoList = this.state.todoList
                         todoList.push({
-                            text: this.state.finalText,
+                            text: finalText,
                             created_at: moment().format('DD MMM YYYY, h:mm a'),
                             updated_at: moment().format('DD MMM YYYY, h:mm a'),
                             checked: false
@@ -140,7 +144,7 @@ class App extends React.Component {
                             window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
                             this.handleListen();
                         } )
-                        // ls.set({todoList: todoList})
+                        console.log('recording?', this.state.recording)
                     }
                 }
             }
@@ -212,10 +216,8 @@ class App extends React.Component {
     return (
       <div className={styles.container}>
         <Listener
-            recording = {this.state.recording}
             interimText = {this.state.interimText}
-            finalText = {this.state.finalText}
-            toggleListen = {this.toggleListen}>
+            finalText = {this.state.finalText}>
         </Listener>
         <ItemList
             todoList = {this.state.todoList}
@@ -231,6 +233,11 @@ class App extends React.Component {
             updateItem = {this.updateItem}
             removeItem = {this.removeItem}>
         </DoneList>
+        <Navbar
+            recording = {this.state.recording}
+            listening = {this.state.listening}
+            toggleListen = {this.toggleListen}>
+        </Navbar>
       </div>
     );
   }
