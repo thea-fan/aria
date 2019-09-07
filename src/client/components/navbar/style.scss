@@ -2,7 +2,11 @@
 	width: 2.5rem;
 	height:2.5rem;
 	background-image: url('https://image.flaticon.com/icons/svg/1361/1361730.svg');
-	background-size: cover
+	background-size: cover;
+	position: absolute;
+  right: 2rem;
+  bottom: 3rem;
+  background-color: #ffffff7d;
 }
 
 .listeningAnimation{
@@ -26,4 +30,24 @@
       box-shadow: 0 0 0 0 rgba(224, 108, 99, 0);
       transform: scale(1);
   }
+}
+
+.rounded{
+	border-top-left-radius: 10px!important;
+  border-top-right-radius: 10px!important;
+}
+
+.tab{
+	background-color: #ffffff99;
+	margin-bottom: -1px;
+	display: block;
+	padding: .5rem 1rem;
+  text-decoration: none !important;
+	border: 1px solid #c9c6f7bf;
+}
+
+.tab:focus, .tab:active {
+  text-decoration: none !important;
+  background-color: #c9c6f7bf;
+
 }

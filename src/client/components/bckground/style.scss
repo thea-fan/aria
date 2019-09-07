@@ -45,8 +45,7 @@
 	background-size: inherit;
 }
 .waveAnimation .waveTop {
-  animation: movewave 10s linear infinite;
-   animation-delay: 1s;
+  animation: movewave 8s linear infinite;
 }
 .waveMiddle {
 	background-size: 50% 120px;
@@ -67,15 +66,15 @@
 
 @keyframes movewave {
 	0% {
-		transform: translateX(0) translateZ(0) scaleY(0.8)
+		transform: translateX(0) translateZ(0) scaleY(1.3)
 	}
 	25% {
-		transform: translateX(-25%) translateZ(0) scaleY(0.35)
+		transform: translateX(-25%) translateZ(0) scaleY(1)
 	}
 	75% {
-		transform: translateX(-50%) translateZ(0) scaleY(0.8)
+		transform: translateX(-50%) translateZ(0) scaleY(1.3)
 	}
 	100% {
-		transform: translateX(-25%) translateZ(0) scaleY(0.35)
+		transform: translateX(-25%) translateZ(0) scaleY(1)
 	}
 }

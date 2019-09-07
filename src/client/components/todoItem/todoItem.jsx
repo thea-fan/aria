@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './style.scss';
 
 //-----------------IMPORT COMPONENTS---------------------
 import EditTodoItem from '../editTodoItem/editTodoItem';
@@ -26,12 +27,13 @@ class TodoItem extends React.Component {
     render() {
         let index=this.props.index;
         let item=this.props.item;
-        let checkboxClass = <input type="checkbox" onChange={() => {this.props.checkItem(index)}} />;
+        let checkboxClass = <label className={styles.container}><input type="checkbox" onChange={() => {this.props.checkItem(index)}}/><span className={styles.checkmark}></span></label>
+
         if (item.checked) {
-            checkboxClass = <input type="checkbox" onChange={() => {this.props.checkItem(index)}} checked/>;
+            checkboxClass = <label className={styles.container}><input type="checkbox" onChange={() => {this.props.checkItem(index)}} checked/><span className={styles.checkmark}></span></label>
         }
 
-        let itemDisplay = <span>{checkboxClass} {item.text}</span>;
+        let itemDisplay = <h5 className="m-0">{item.text}</h5>;
 
         if (item.editing) {
             itemDisplay = (
@@ -44,11 +46,15 @@ class TodoItem extends React.Component {
         }
 
         return (
-            <div>
-                <div>
-                {itemDisplay} <br/> <small>Posted on {item.created_at}</small>
-                <button onClick={() => {this.props.editItem(index)}}>Edit</button>
-                <button onClick={() => {this.props.removeItem(index)}}>Delete</button>
+            <div className = {`text-left mb-3 row ${styles.indvdItem}`}>
+                <div className = "col-10 pl-4 pr-0 my-2">
+                    {itemDisplay}
+                    <small>{item.created_at}</small>
+                    <button className = "mx-1 p-0" onClick={() => {this.props.editItem(index)}}><i className='bx bx-edit-alt' ></i></button>
+                    <button className = "p-0" onClick={() => {this.props.removeItem(index)}}><i className='bx bx-trash' ></i></button>
+                </div>
+                <div className = "col-1 d-flex justify-content-center align-items-center">
+                    {checkboxClass}
                 </div>
             </div>
         )

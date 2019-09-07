@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './style.scss';
 
 //-----------------IMPORT COMPONENTS---------------------
 import TodoItem from '../todoItem/todoItem';
@@ -24,12 +25,9 @@ class DoneList extends React.Component {
             }
         });
         return (
-            <div className="checklist-current">
-                <h4>Done Items</h4>
-                <div className="list">
-                    <ul className="list-group">
-                        {listItems}
-                    </ul>
+            <div className = {`mt-4 mr-2 ${styles.yscroll}`}>
+                 <div className = "mt-2 d-flex flex-column align-items-center">
+                    {listItems}
                 </div>
             </div>
         )

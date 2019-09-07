@@ -1,5 +1,4 @@
 body{
-		padding:10px;
 		padding-bottom:50px;
 }
 
@@ -33,3 +32,15 @@ body{
     margin: 1em;
     width: 300px
   }
+
+.rounded{
+	border-top-left-radius: 60px!important;
+  border-top-right-radius: 60px!important;
+  background-image: linear-gradient(to bottom, #fffffff7 20%, #ffffff08 80%);
+  min-height: 80vh;
+}
+
+
+.active{
+	background-color: salmon;
+}

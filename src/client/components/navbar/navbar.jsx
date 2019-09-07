@@ -35,17 +35,23 @@ clickHandler() {
     let className = cx({
         microphone: true,
         listeningAnimation: this.state.listeningAnimation,
-        'mx-auto rounded-circle mb-3': true
+        'mx-auto rounded-circle': true
     })
 
         return (
-            <nav className="navbar fixed-bottom">
-                <div id = 'microphone' className = {className}
+            <nav className="navbar fixed-bottom p-0">
+                <div className = {className}
                 style={{backgroundImage: this.props.recording? "url('https://image.flaticon.com/icons/svg/1361/1361878.svg')" : "url('https://image.flaticon.com/icons/svg/1361/1361730.svg')",
                         width: this.props.recording? '5.5rem' : '2.5rem',
                         height: this.props.recording? '5.5rem' : '2.5rem'
                     }}
                 onClick={this.clickHandler}></div>
+                <div className="nav nav-tabs border-bottom-0 ml-1" id="nav-tab" role="tablist">
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} id="nav-home-tab" data-toggle="tab" href="#nav-intentions" role="tab" aria-selected="true">Intentions
+                    </a>
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} id="nav-profile-tab" data-toggle="tab" href="#nav-accomplished" role="tab" aria-selected="false">Accomplished
+                    </a>
+                </div>
             </nav>
         )
     }

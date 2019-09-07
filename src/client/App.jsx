@@ -38,14 +38,14 @@ class App extends React.Component {
           todoList:[
             {
                 text: "Hi this is first attempt",
-                created_at: "4 Sep 2019, 5:29 pm",
-                updated_at: "4 Sep 2019, 5:29 pm",
+                created_at: "4 Sep, 5:29 pm",
+                updated_at: "4 Sep, 5:29 pm",
                 checked: false
             },
             {
                 text: "second attempt",
-                created_at: "5 Sep 2019, 12:29 pm",
-                updated_at: "5 Sep 2019, 12:29 pm",
+                created_at: "5 Sep, 12:29 pm",
+                updated_at: "5 Sep, 12:29 pm",
                 checked: true
             }
           ]
@@ -88,8 +88,8 @@ class App extends React.Component {
             let todoList = this.state.todoList
             todoList.push({
                 text: this.state.finalText,
-                created_at: moment().format('DD MMM YYYY, h:mm a'),
-                updated_at: moment().format('DD MMM YYYY, h:mm a'),
+                created_at: moment().format('DD MMM, h:mm a'),
+                updated_at: moment().format('DD MMM, h:mm a'),
                 checked: false
             })
             this.setState({todoList: todoList, finalText:"", recording:false}, () => {
@@ -137,8 +137,8 @@ class App extends React.Component {
                         let todoList = this.state.todoList
                         todoList.push({
                             text: finalText,
-                            created_at: moment().format('DD MMM YYYY, h:mm a'),
-                            updated_at: moment().format('DD MMM YYYY, h:mm a'),
+                            created_at: moment().format('DD MMM, h:mm a'),
+                            updated_at: moment().format('DD MMM, h:mm a'),
                             checked: false
                         })
                         this.setState({finalText:"", recording: false, todoList: todoList}, () => {
@@ -191,7 +191,7 @@ class App extends React.Component {
         event.preventDefault();
         let todoList = this.state.todoList;
         todoList[index].text = word;
-        todoList[index].updated_at = moment().format('DD MMM YYYY, h:mm a');
+        todoList[index].updated_at = moment().format('DD MMM, h:mm a');
         todoList[index].editing = false;
         this.setState({
             todoList: todoList,
@@ -217,24 +217,34 @@ class App extends React.Component {
     return (
       <div className={styles.container}>
         <Bckground />
+
         <Listener
             interimText = {this.state.interimText}
             finalText = {this.state.finalText}>
         </Listener>
-        <ItemList
-            todoList = {this.state.todoList}
-            checkItem = {this.checkItem}
-            editItem = {this.editItem}
-            updateItem = {this.updateItem}
-            removeItem = {this.removeItem}>
-        </ItemList>
-        <DoneList
-            todoList = {this.state.todoList}
-            checkItem = {this.checkItem}
-            editItem = {this.editItem}
-            updateItem = {this.updateItem}
-            removeItem = {this.removeItem}>
-        </DoneList>
+
+        <div className = {`col-12 ${styles.rounded}`}>
+            <div className="tab-content" id="nav-tabContent">
+                <div className="tab-pane fade" id="nav-intentions" role="tabpanel" >
+                    <ItemList
+                        todoList = {this.state.todoList}
+                        checkItem = {this.checkItem}
+                        editItem = {this.editItem}
+                        updateItem = {this.updateItem}
+                        removeItem = {this.removeItem}>
+                    </ItemList>
+                </div>
+                <div className="tab-pane fade" id="nav-accomplished" role="tabpanel" >
+                    <DoneList
+                        todoList = {this.state.todoList}
+                        checkItem = {this.checkItem}
+                        editItem = {this.editItem}
+                        updateItem = {this.updateItem}
+                        removeItem = {this.removeItem}>
+                    </DoneList>
+                </div>
+            </div>
+        </div>
         <Navbar
             recording = {this.state.recording}
             listening = {this.state.listening}
