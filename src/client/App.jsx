@@ -10,6 +10,7 @@ let localStorage = [];
 import Bckground from './components/bckground/bckground';
 import Navbar from './components/navbar/navbar';
 import Listener from './components/listener/listener';
+import Instruction from './components/instruction/instruction';
 import ItemList from './components/itemList/itemList';
 import DoneList from './components/doneList/doneList';
 
@@ -107,6 +108,8 @@ class App extends React.Component {
                 let transcript = event.results[i][0].transcript
                 if (event.results[i].isFinal){
                     finalTranscript += transcript + ' '
+                    console.log('#$%^&*%$$#%%^&%$ transcript = ', transcript)
+                    console.log('#$%^&*%$$#%%^&%$ finalTranscript = ', finalTranscript)
                 } else {
                     interimTranscript += transcript
                 }
@@ -121,6 +124,18 @@ class App extends React.Component {
                     ariaIndex = helloIndex+2
                     let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
                     if (startCmd[0] === 'hello' && startCmd[1] === 'Aria'){
+                        let recordedText = transcriptArr.slice(ariaIndex).join(' ')
+                        this.setState({interimText:interimTranscript, finalText:recordedText, recording:true})
+                        console.log('recording?', this.state.recording)
+                    }
+                }
+
+                if (transcriptArr.includes("clear")) {
+                    console.log(transcriptArr)
+                    let helloIndex = transcriptArr.lastIndexOf("clear")
+                    ariaIndex = helloIndex+2
+                    let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
+                    if (startCmd[0] === 'clear' && startCmd[1] === 'message'){
                         let recordedText = transcriptArr.slice(ariaIndex).join(' ')
                         this.setState({interimText:interimTranscript, finalText:recordedText, recording:true})
                         console.log('recording?', this.state.recording)
@@ -219,12 +234,21 @@ class App extends React.Component {
         <Bckground />
 
         <Listener
+            recording = {this.state.recording}
+            listening = {this.state.listening}
             interimText = {this.state.interimText}
             finalText = {this.state.finalText}>
         </Listener>
 
         <div className = {`col-12 ${styles.rounded}`}>
-            <div className="tab-content" id="nav-tabContent">
+            <Instruction
+                recording = {this.state.recording}
+                interimText = {this.state.interimText}
+                finalText = {this.state.finalText}>
+            </Instruction>
+            <div style={
+                {display: !this.state.recording? "block":"none"}}
+                className="tab-content" id="nav-tabContent">
                 <div className="tab-pane fade" id="nav-intentions" role="tabpanel" >
                     <ItemList
                         todoList = {this.state.todoList}
