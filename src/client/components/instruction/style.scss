@@ -1,15 +1,30 @@
 .interim {
-	color: gray;
-	border: #ccc 1px solid;
-	padding: 1em;
-	margin: 1em;
-	width: 300px
+    color: gray;
+    border: #cccccc42 1px solid;
+    border-radius: 20px;
+    padding: 1em;
+    margin: 1em;
+    width: 300px
   }
 
 .final {
-	color: black;
-	border: #ccc 1px solid;
-	padding: 1em;
-	margin: 1em;
-	width: 300px
+    color: black;
+    border: #ccc 1px solid;
+    border-radius: 20px;
+    padding: 1em;
+    margin: 1em;
+    width: 300px
   }
+
+
+.instruction{
+	line-height: 2.5rem;
+}
+
+.rounded{
+	border-top-left-radius: 60px!important;
+  border-top-right-radius: 60px!important;
+  background-image: linear-gradient(to bottom, #fffffff7 20%, #ffffff08 80%);
+  min-height: 80vh;
+  padding-top:1px;
+}

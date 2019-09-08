@@ -11,3 +11,11 @@
   border-radius: 8px;
   background-color: rgba(200, 199, 238, 0.48);
 }
+
+.rounded{
+	border-top-left-radius: 60px!important;
+  border-top-right-radius: 60px!important;
+  background-image: linear-gradient(to bottom, #fffffff7 20%, #ffffff08 80%);
+  min-height: 80vh;
+  padding-top:1px;
+}

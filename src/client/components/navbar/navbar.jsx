@@ -16,18 +16,18 @@ class Navbar extends React.Component {
         this.clickHandler = this.clickHandler.bind(this);
     }
 
-animation(){
-     if (!this.props.listening){
-        this.setState({listeningAnimation: "listeningAnimation"})
-    } else {
-        this.setState({listeningAnimation: ""})
+    animation(){
+         if (!this.props.listening){
+            this.setState({listeningAnimation: "listeningAnimation"})
+        } else {
+            this.setState({listeningAnimation: ""})
+        }
     }
-}
 
-clickHandler() {
-    this.props.toggleListen()
-    this.animation()
-}
+    clickHandler() {
+        this.props.toggleListen()
+        this.animation()
+    }
 
 
   render() {
@@ -47,9 +47,11 @@ clickHandler() {
                     }}
                 onClick={this.clickHandler}></div>
                 <div className="nav nav-tabs border-bottom-0 ml-1" id="nav-tab" role="tablist">
-                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} id="nav-home-tab" data-toggle="tab" href="#nav-intentions" role="tab" aria-selected="true">Intentions
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-home" role="tab" aria-selected="true">Home
                     </a>
-                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} id="nav-profile-tab" data-toggle="tab" href="#nav-accomplished" role="tab" aria-selected="false">Accomplished
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-focuses" role="tab" aria-selected="true">Focuses
+                    </a>
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-accomplished" role="tab" aria-selected="false">Accomplished
                     </a>
                 </div>
             </nav>

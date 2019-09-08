@@ -1,12 +1,11 @@
 .microphone{
 	width: 2.5rem;
 	height:2.5rem;
-	background-image: url('https://image.flaticon.com/icons/svg/1361/1361730.svg');
+	background-color: #ffffffe8;
 	background-size: cover;
 	position: absolute;
   right: 2rem;
   bottom: 3rem;
-  background-color: #ffffff7d;
 }
 
 .listeningAnimation{
@@ -48,6 +47,5 @@
 
 .tab:focus, .tab:active {
   text-decoration: none !important;
-  background-color: #c9c6f7bf;
-
+  background-image: linear-gradient(to bottom, #f1eaff85 20%, #d8c7f3fa 80%);
 }

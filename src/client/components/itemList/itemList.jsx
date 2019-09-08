@@ -27,7 +27,7 @@ class ItemList extends React.Component {
             }
         });
         return (
-            <div className = {`mt-4 mr-2 ${styles.yscroll}`}>
+            <div className = {`pt-3 ${styles.rounded} ${styles.yscroll}`}>
               <div className = "mt-2 d-flex flex-column align-items-center">
                 {listItems}
               </div>

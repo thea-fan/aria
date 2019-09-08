@@ -9,12 +9,13 @@ class Instruction extends React.Component {
   render() {
 
     return (
-        <div style={
+        <div className={`d-flex pt-5 flex-column align-items-center ${styles.rounded}`} style={
                 {display: this.props.recording? "block":"none"}}>
             <div className={styles.interim}>{this.props.interimText}</div>
             <div className={styles.final}>{this.props.finalText}</div>
-            <p>To end recording, say "Goodbye Aria" <br/>
-                To re-record, say "clear message" to start again.
+            <p className={`mt-3 text-muted ${styles.instruction}`}>
+                To end, say <i>"thank you Aria"</i>. <br/>
+                To re-record, say <i>"clear message"</i> to start again.
             </p>
         </div>
     );

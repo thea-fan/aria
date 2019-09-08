@@ -8,8 +8,9 @@ let localStorage = [];
 
 //-----------------IMPORT COMPONENTS---------------------
 import Bckground from './components/bckground/bckground';
+import Home from './components/home/home';
 import Navbar from './components/navbar/navbar';
-import Listener from './components/listener/listener';
+import Header from './components/header/header';
 import Instruction from './components/instruction/instruction';
 import ItemList from './components/itemList/itemList';
 import DoneList from './components/doneList/doneList';
@@ -78,11 +79,12 @@ class App extends React.Component {
             console.log("...user is pausing, continue listening...")
             recognition.start();
           }
+
         } else {
           recognition.stop()
           recognition.onend = () => {
             console.log("Stopped listening by click")
-            if (this.state.finalText != ""){
+            if ((this.state.finalText != "") && (this.state.finalText != stopCmd.join(" "))){
                 let todoList = this.state.todoList
                 todoList.push({
                     text: this.state.finalText,
@@ -138,29 +140,31 @@ class App extends React.Component {
                     }
                 }
 
-                let saveCmd = transcriptArr.slice(-3)
+                // let saveCmd = transcriptArr.slice(-3)
 
-                if (saveCmd[0] === 'okay' && saveCmd[1] === 'next'){
-                    let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
-                    let todoList = this.state.todoList
-                    todoList.push({
-                        text: finalText,
-                        created_at: moment().format('DD MMM, h:mm a'),
-                        updated_at: moment().format('DD MMM, h:mm a'),
-                        checked: false
-                    })
-                    this.setState({finalText:"", todoList: todoList}, () => {
-                        window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
-                    } )
-                    console.log('still recording?', this.state.recording)
-                }
+                // if (saveCmd[0] === 'okay' && saveCmd[1] === 'next'){
+                //     let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
+                //     let todoList = this.state.todoList
+                //     todoList.push({
+                //         text: finalText,
+                //         created_at: moment().format('DD MMM, h:mm a'),
+                //         updated_at: moment().format('DD MMM, h:mm a'),
+                //         checked: false
+                //     })
+                //     this.setState({finalText:"", todoList: todoList}, () => {
+                //         window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                //     })
+                //     console.log('still recording?', this.state.recording)
+                // }
+
+                // let nextIndex;
 
                 // if (transcriptArr.includes("okay")) {
-                //     let helloIndex = transcriptArr.lastIndexOf("okay")
-                //     ariaIndex = helloIndex+2
-                //     let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
-                //     if (startCmd[0] === 'okay' && startCmd[1] === 'next'){
-                //         let recordedText = transcriptArr.slice(ariaIndex).join(' ')
+                //     let okIndex = transcriptArr.lastIndexOf("okay")
+                //     nextIndex = okIndex+2
+                //     let nextCmd = transcriptArr.slice(okIndex, nextIndex)
+                //     if (nextCmd[0] === 'okay' && nextCmd[1] === 'next'){
+                //         let recordedText = transcriptArr.slice(ariaIndex, okIndex).join(' ')
                 //         let todoList = this.state.todoList
                 //         todoList.push({
                 //             text: recordedText,
@@ -170,7 +174,7 @@ class App extends React.Component {
                 //         })
                 //         this.setState({finalText:"", interimText:interimTranscript, recording:true, todoList: todoList}, () => {
                 //             window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
-                //         } )
+                //         })
                 //     }
                 // }
 
@@ -181,20 +185,20 @@ class App extends React.Component {
                     //recognition.stop()
                     recognition.onend = () => {
                         console.log('Stopped recording by voice command')
-                        console.log('$%^$#$%^#', this.state.finalText)
                         if (this.state.finalText != stopCmd.join(" ")){
-                            let finalText = transcriptArr.slice(ariaIndex, -4).join(' ')
-                            let todoList = this.state.todoList
-                            todoList.push({
-                                text: finalText,
-                                created_at: moment().format('DD MMM, h:mm a'),
-                                updated_at: moment().format('DD MMM, h:mm a'),
-                                checked: false
-                            })
-                            this.setState({finalText:finalText, recording: false, todoList: todoList}, () => {
-                                window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
-                                this.handleListen();
-                            })
+                                let finalText = transcriptArr.slice(ariaIndex, -4).join(' ')
+                                let todoList = this.state.todoList
+                                todoList.push({
+                                    text: finalText,
+                                    created_at: moment().format('DD MMM, h:mm a'),
+                                    updated_at: moment().format('DD MMM, h:mm a'),
+                                    checked: false
+                                })
+                                this.setState({finalText:finalText, recording: false, todoList: todoList}, () => {
+                                    window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                                    this.handleListen();
+                                })
+
                         } else {
                             this.setState({recording: false, finalText:""})
                             this.handleListen();
@@ -270,25 +274,46 @@ class App extends React.Component {
 
     return (
       <div className={styles.container}>
-        <Bckground />
+        <Bckground
+            recording = {this.state.recording}>
+         </Bckground>
 
-        <Listener
-            recording = {this.state.recording}
-            listening = {this.state.listening}
-            interimText = {this.state.interimText}
-            finalText = {this.state.finalText}>
-        </Listener>
 
-        <div className = {`col-12 ${styles.rounded}`}>
-            <Instruction
-                recording = {this.state.recording}
-                interimText = {this.state.interimText}
-                finalText = {this.state.finalText}>
-            </Instruction>
+
+
+        <div className = "col-12">
+            <div style={
+                {display: this.state.recording? "block":"none"}}>
+                <Header
+                    recording = {this.state.recording}
+                    listening = {this.state.listening}
+                    interimText = {this.state.interimText}
+                    finalText = {this.state.finalText}>
+                </Header>
+                <Instruction
+                    recording = {this.state.recording}
+                    interimText = {this.state.interimText}
+                    finalText = {this.state.finalText}>
+                </Instruction>
+            </div>
             <div style={
                 {display: !this.state.recording? "block":"none"}}
                 className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade" id="nav-intentions" role="tabpanel" >
+                <div className="tab-pane fade show active" id="nav-home" role="tabpanel" >
+                    <Home
+                        recording = {this.state.recording}
+                        listening = {this.state.listening}
+                        todoList = {this.state.todoList}>
+                    </Home>
+                </div>
+
+                <div className="tab-pane fade" id="nav-focuses" role="tabpanel" >
+                    <Header
+                        recording = {this.state.recording}
+                        listening = {this.state.listening}
+                        interimText = {this.state.interimText}
+                        finalText = {this.state.finalText}>
+                    </Header>
                     <ItemList
                         todoList = {this.state.todoList}
                         checkItem = {this.checkItem}
@@ -297,7 +322,15 @@ class App extends React.Component {
                         removeItem = {this.removeItem}>
                     </ItemList>
                 </div>
+
+
                 <div className="tab-pane fade" id="nav-accomplished" role="tabpanel" >
+                    <Header
+                        recording = {this.state.recording}
+                        listening = {this.state.listening}
+                        interimText = {this.state.interimText}
+                        finalText = {this.state.finalText}>
+                    </Header>
                     <DoneList
                         todoList = {this.state.todoList}
                         checkItem = {this.checkItem}
