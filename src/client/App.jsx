@@ -72,10 +72,6 @@ class App extends React.Component {
     handleListen(){
         console.log('listening?', this.state.listening);
 
-        // recognition.onstart = () => {
-        //   console.log("Start Listening!")
-        // }
-
         if (this.state.listening) {
           recognition.start()
           recognition.onend = () => {
@@ -86,16 +82,20 @@ class App extends React.Component {
           recognition.stop()
           recognition.onend = () => {
             console.log("Stopped listening by click")
-            let todoList = this.state.todoList
-            todoList.push({
-                text: this.state.finalText,
-                created_at: moment().format('DD MMM, h:mm a'),
-                updated_at: moment().format('DD MMM, h:mm a'),
-                checked: false
-            })
-            this.setState({todoList: todoList, finalText:"", recording:false}, () => {
-                window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
-            })
+            if (this.state.finalText != ""){
+                let todoList = this.state.todoList
+                todoList.push({
+                    text: this.state.finalText,
+                    created_at: moment().format('DD MMM, h:mm a'),
+                    updated_at: moment().format('DD MMM, h:mm a'),
+                    checked: false
+                })
+                this.setState({todoList: todoList, finalText:"", recording:false}, () => {
+                    window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                })
+            } else {
+                this.setState({recording:false})
+            }
             console.log('recording?', this.state.recording)
           }
         }
@@ -108,8 +108,6 @@ class App extends React.Component {
                 let transcript = event.results[i][0].transcript
                 if (event.results[i].isFinal){
                     finalTranscript += transcript + ' '
-                    console.log('#$%^&*%$$#%%^&%$ transcript = ', transcript)
-                    console.log('#$%^&*%$$#%%^&%$ finalTranscript = ', finalTranscript)
                 } else {
                     interimTranscript += transcript
                 }
@@ -131,35 +129,76 @@ class App extends React.Component {
                 }
 
                 if (transcriptArr.includes("clear")) {
-                    console.log(transcriptArr)
                     let helloIndex = transcriptArr.lastIndexOf("clear")
                     ariaIndex = helloIndex+2
                     let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
                     if (startCmd[0] === 'clear' && startCmd[1] === 'message'){
                         let recordedText = transcriptArr.slice(ariaIndex).join(' ')
                         this.setState({interimText:interimTranscript, finalText:recordedText, recording:true})
-                        console.log('recording?', this.state.recording)
                     }
                 }
 
-                let stopCmd = transcriptArr.slice(-3, -1)
+                let saveCmd = transcriptArr.slice(-3)
 
-                if (stopCmd[0] === 'goodbye' && stopCmd[1] === 'Aria'){
+                if (saveCmd[0] === 'okay' && saveCmd[1] === 'next'){
+                    let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
+                    let todoList = this.state.todoList
+                    todoList.push({
+                        text: finalText,
+                        created_at: moment().format('DD MMM, h:mm a'),
+                        updated_at: moment().format('DD MMM, h:mm a'),
+                        checked: false
+                    })
+                    this.setState({finalText:"", todoList: todoList}, () => {
+                        window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                    } )
+                    console.log('still recording?', this.state.recording)
+                }
+
+                // if (transcriptArr.includes("okay")) {
+                //     let helloIndex = transcriptArr.lastIndexOf("okay")
+                //     ariaIndex = helloIndex+2
+                //     let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
+                //     if (startCmd[0] === 'okay' && startCmd[1] === 'next'){
+                //         let recordedText = transcriptArr.slice(ariaIndex).join(' ')
+                //         let todoList = this.state.todoList
+                //         todoList.push({
+                //             text: recordedText,
+                //             created_at: moment().format('DD MMM, h:mm a'),
+                //             updated_at: moment().format('DD MMM, h:mm a'),
+                //             checked: false
+                //         })
+                //         this.setState({finalText:"", interimText:interimTranscript, recording:true, todoList: todoList}, () => {
+                //             window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                //         } )
+                //     }
+                // }
+
+
+                let stopCmd = transcriptArr.slice(-4)
+
+                if (stopCmd[0] === 'thank' && stopCmd[1] === 'you' && stopCmd[2] === 'Aria'){
                     //recognition.stop()
                     recognition.onend = () => {
                         console.log('Stopped recording by voice command')
-                        let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
-                        let todoList = this.state.todoList
-                        todoList.push({
-                            text: finalText,
-                            created_at: moment().format('DD MMM, h:mm a'),
-                            updated_at: moment().format('DD MMM, h:mm a'),
-                            checked: false
-                        })
-                        this.setState({finalText:"", recording: false, todoList: todoList}, () => {
-                            window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                        console.log('$%^$#$%^#', this.state.finalText)
+                        if (this.state.finalText != stopCmd.join(" ")){
+                            let finalText = transcriptArr.slice(ariaIndex, -4).join(' ')
+                            let todoList = this.state.todoList
+                            todoList.push({
+                                text: finalText,
+                                created_at: moment().format('DD MMM, h:mm a'),
+                                updated_at: moment().format('DD MMM, h:mm a'),
+                                checked: false
+                            })
+                            this.setState({finalText:finalText, recording: false, todoList: todoList}, () => {
+                                window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                                this.handleListen();
+                            })
+                        } else {
+                            this.setState({recording: false, finalText:""})
                             this.handleListen();
-                        } )
+                        }
                         console.log('recording?', this.state.recording)
                     }
                 }
