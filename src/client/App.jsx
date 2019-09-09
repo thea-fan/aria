@@ -79,12 +79,11 @@ class App extends React.Component {
             console.log("...user is pausing, continue listening...")
             recognition.start();
           }
-
         } else {
           recognition.stop()
           recognition.onend = () => {
             console.log("Stopped listening by click")
-            if ((this.state.finalText != "") && (this.state.finalText != stopCmd.join(" "))){
+            if (this.state.finalText != ""){
                 let todoList = this.state.todoList
                 todoList.push({
                     text: this.state.finalText,
@@ -105,9 +104,9 @@ class App extends React.Component {
         let finalTranscript = '';
 
         recognition.onresult = event => {
-            let interimTranscript = ''
+            let interimTranscript = '';
             for (let i = event.resultIndex; i < event.results.length; i++) {
-                let transcript = event.results[i][0].transcript
+                let transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal){
                     finalTranscript += transcript + ' '
                 } else {
@@ -115,71 +114,51 @@ class App extends React.Component {
                 }
 
                 let transcriptArr = finalTranscript.split(' ')
-
                 let ariaIndex;
 
                 if (transcriptArr.includes("hello")) {
-                    console.log(transcriptArr)
-                    let helloIndex = transcriptArr.lastIndexOf("hello")
-                    ariaIndex = helloIndex+2
-                    let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
+                    console.log(transcriptArr);
+                    let helloIndex = transcriptArr.lastIndexOf("hello");
+                    ariaIndex = helloIndex+2;
+                    let startCmd = transcriptArr.slice(helloIndex, ariaIndex);
                     if (startCmd[0] === 'hello' && startCmd[1] === 'Aria'){
                         let recordedText = transcriptArr.slice(ariaIndex).join(' ')
-                        this.setState({interimText:interimTranscript, finalText:recordedText, recording:true})
-                        console.log('recording?', this.state.recording)
+                        this.setState({interimText:interimTranscript, finalText:recordedText, recording:true}, () => console.log('recording?', this.state.recording))
                     }
                 }
 
                 if (transcriptArr.includes("clear")) {
-                    let helloIndex = transcriptArr.lastIndexOf("clear")
-                    ariaIndex = helloIndex+2
-                    let startCmd = transcriptArr.slice(helloIndex, ariaIndex)
+                    let helloIndex = transcriptArr.lastIndexOf("clear");
+                    ariaIndex = helloIndex+2;
+                    let startCmd = transcriptArr.slice(helloIndex, ariaIndex);
                     if (startCmd[0] === 'clear' && startCmd[1] === 'message'){
-                        let recordedText = transcriptArr.slice(ariaIndex).join(' ')
+                        let recordedText = transcriptArr.slice(ariaIndex).join(' ');
                         this.setState({interimText:interimTranscript, finalText:recordedText, recording:true})
                     }
                 }
 
-                // let saveCmd = transcriptArr.slice(-3)
+                //**************************** STUPID OK NEXT COMMAND
+                if (transcriptArr.includes("okay")) {
+                    let helloIndex = transcriptArr.lastIndexOf("okay");
+                    ariaIndex = helloIndex+2;
+                    let startCmd = transcriptArr.slice(helloIndex, ariaIndex);
+                    if (startCmd[0] === 'okay' && startCmd[1] === 'next'){
+                        let recordedText = transcriptArr.slice(ariaIndex, -3).join(' ');
+                        let todoList = this.state.todoList
+                        todoList.push({
+                            text: recordedText,
+                            created_at: moment().format('DD MMM, h:mm a'),
+                            updated_at: moment().format('DD MMM, h:mm a'),
+                            checked: false
+                        })
+                        this.setState({finalText:"", interimText:interimTranscript, recording:true, todoList: todoList}, () => {
+                            window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
+                        })
+                    }
+                }
+                //****************************
 
-                // if (saveCmd[0] === 'okay' && saveCmd[1] === 'next'){
-                //     let finalText = transcriptArr.slice(ariaIndex, -3).join(' ')
-                //     let todoList = this.state.todoList
-                //     todoList.push({
-                //         text: finalText,
-                //         created_at: moment().format('DD MMM, h:mm a'),
-                //         updated_at: moment().format('DD MMM, h:mm a'),
-                //         checked: false
-                //     })
-                //     this.setState({finalText:"", todoList: todoList}, () => {
-                //         window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
-                //     })
-                //     console.log('still recording?', this.state.recording)
-                // }
-
-                // let nextIndex;
-
-                // if (transcriptArr.includes("okay")) {
-                //     let okIndex = transcriptArr.lastIndexOf("okay")
-                //     nextIndex = okIndex+2
-                //     let nextCmd = transcriptArr.slice(okIndex, nextIndex)
-                //     if (nextCmd[0] === 'okay' && nextCmd[1] === 'next'){
-                //         let recordedText = transcriptArr.slice(ariaIndex, okIndex).join(' ')
-                //         let todoList = this.state.todoList
-                //         todoList.push({
-                //             text: recordedText,
-                //             created_at: moment().format('DD MMM, h:mm a'),
-                //             updated_at: moment().format('DD MMM, h:mm a'),
-                //             checked: false
-                //         })
-                //         this.setState({finalText:"", interimText:interimTranscript, recording:true, todoList: todoList}, () => {
-                //             window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
-                //         })
-                //     }
-                // }
-
-
-                let stopCmd = transcriptArr.slice(-4)
+                let stopCmd = transcriptArr.slice(-4);
 
                 if (stopCmd[0] === 'thank' && stopCmd[1] === 'you' && stopCmd[2] === 'Aria'){
                     //recognition.stop()
@@ -194,21 +173,24 @@ class App extends React.Component {
                                     updated_at: moment().format('DD MMM, h:mm a'),
                                     checked: false
                                 })
-                                this.setState({finalText:finalText, recording: false, todoList: todoList}, () => {
+                                this.setState({finalText:"", recording: false, todoList: todoList}, () => {
                                     window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
                                     this.handleListen();
                                 })
-
                         } else {
                             this.setState({recording: false, finalText:""})
                             this.handleListen();
                         }
-                        console.log('recording?', this.state.recording)
                     }
                 }
             }
         }
     }
+
+
+
+
+
 
     checkItem(index) {
         let todoList = this.state.todoList;
