@@ -12,6 +12,7 @@ import Home from './components/home/home';
 import Navbar from './components/navbar/navbar';
 import Header from './components/header/header';
 import Instruction from './components/instruction/instruction';
+import Audio from './components/audio/audio';
 import ItemList from './components/itemList/itemList';
 import DoneList from './components/doneList/doneList';
 
@@ -50,7 +51,8 @@ class App extends React.Component {
                 updated_at: "5 Sep, 12:29 pm",
                 checked: true
             }
-          ]
+          ],
+          audioInfo:[]
         };
         this.toggleListen = this.toggleListen.bind(this)
         this.handleListen = this.handleListen.bind(this)
@@ -58,11 +60,13 @@ class App extends React.Component {
         this.editItem = this.editItem.bind(this);
         this.updateItem = this.updateItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
+        this.addAudio = this.addAudio.bind(this);
     }
 
     componentDidMount() {
     localStorage = JSON.parse(window.localStorage.getItem('todoList')) || this.state.todoList;
-    this.setState({todoList: localStorage});
+    let audioLocalStorage = JSON.parse(window.localStorage.getItem('audioInfo')) || this.state.audioInfo;
+    this.setState({todoList: localStorage, audioInfo: audioLocalStorage});
   }
 
     toggleListen() {
@@ -188,10 +192,6 @@ class App extends React.Component {
     }
 
 
-
-
-
-
     checkItem(index) {
         let todoList = this.state.todoList;
         if(todoList[index].checked) {
@@ -247,7 +247,21 @@ class App extends React.Component {
         this.setState({todoList: todoList}, () => {
             window.localStorage.setItem("todoList", JSON.stringify(this.state.todoList))
         })
+    }
 
+    addAudio(event, URL){
+        event.preventDefault();
+        console.log(this.state.audioInfo)
+        let audioInfo = this.state.audioInfo;
+            audioInfo.push({
+                fileURL: URL,
+                created_at: moment().format('DD MMM, h:mm a')
+            });
+            this.setState({
+                audioInfo: audioInfo
+            }, () => {
+            window.localStorage.setItem("audioInfo", JSON.stringify(this.state.audioInfo));
+            })
     }
 
 
@@ -320,6 +334,18 @@ class App extends React.Component {
                         updateItem = {this.updateItem}
                         removeItem = {this.removeItem}>
                     </DoneList>
+                </div>
+                <div className="tab-pane fade" id="nav-audio" role="tabpanel" >
+                    <Header
+                        recording = {this.state.recording}
+                        listening = {this.state.listening}
+                        interimText = {this.state.interimText}
+                        finalText = {this.state.finalText}>
+                    </Header>
+                    <Audio
+                        audioInfo = {this.state.audioInfo}
+                        addAudio = {this.addAudio}>
+                    </Audio>
                 </div>
             </div>
         </div>

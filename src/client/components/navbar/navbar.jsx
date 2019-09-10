@@ -53,6 +53,8 @@ class Navbar extends React.Component {
                     </a>
                     <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-accomplished" role="tab" aria-selected="false">Accomplished
                     </a>
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-audio" role="tab" aria-selected="false">Audio
+                    </a>
                 </div>
             </nav>
         )
