@@ -14,8 +14,8 @@ class Instruction extends React.Component {
             <div className={styles.interim}>{this.props.interimText}</div>
             <div className={styles.final}>{this.props.finalText}</div>
             <p className={`mt-3 text-muted ${styles.instruction}`}>
-                To end, say <i>"thank you Aria"</i>. <br/>
-                To re-record, say <i>"clear message"</i> to start again.
+                To end, say <i>&quot thank you Aria &quot</i>. <br/>
+                To re-record, say <i>&quot clear message &quot</i> to start again.
             </p>
         </div>
     );

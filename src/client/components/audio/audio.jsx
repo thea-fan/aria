@@ -7,8 +7,6 @@ import styles from './style.scss';
 
 //------------------------COMPONENT-----------------------------
 
-
-
 class Audio extends React.Component {
 
     constructor(props) {
@@ -21,9 +19,6 @@ class Audio extends React.Component {
     }
 
     componentDidMount (){
-        // localStorage = JSON.parse(window.localStorage.getItem('audioInfo')) || [];
-        //     this.setState({audioList: localStorage});
-
 
         const getMic = document.getElementById('mic');
         const recordButton = document.getElementById('record');
@@ -72,9 +67,7 @@ class Audio extends React.Component {
     }
 
 
-    renderRecording(blob, list) {
-        const div = document.createElement('div');
-        const audio = document.createElement('audio');
+    renderRecording(blob) {
 
         const blobUrl = URL.createObjectURL(blob);
 
@@ -83,8 +76,6 @@ class Audio extends React.Component {
         fetch(blobUrl)
             .then(function(res) {
               res.blob().then(function(blob) {
-                var size = blob.size;
-                var type = blob.type;
 
                 var reader = new FileReader();
                 reader.addEventListener("loadend", function() {
@@ -112,11 +103,10 @@ class Audio extends React.Component {
     let recordings;
 
     if (this.props.audioInfo.length > 0){
-        console.log('IT COMES IN HERE!')
         recordings = this.props.audioInfo.map((item, index) => {
         return(
-            <div>
-                <audio src = {item.fileURL.src} controls = "controls"/>
+            <div key = {index}>
+                <audio className = "my-1" src = {item.fileURL.src} controls = "controls"/>
             </div>
         )
     })
@@ -128,21 +118,16 @@ class Audio extends React.Component {
             </div>
     }
 
-    console.log(this.props.audioInfo[0])
-
 
     return (
-      <div>
-        <main>
+      <div className = {`pt-3 ${styles.rounded}`}>
           <div className="controls">
-            <button className={styles.record} id="mic">Get Microphone</button>
-            <button className={styles.record} id="record" hidden>Record</button>
+            <div className={` rounded-circle mx-auto my-2 ${styles.record}`} id="mic"></div>
+            <div className={` rounded-circle mx-auto my-1 ${styles.recording}`} id="record" hidden></div>
           </div>
-          <div id="recordings">
+          <div className = {`mt-4 mx-2 ${styles.yscroll}`} id="recordings">
             {recordings}
           </div>
-
-        </main>
       </div>
     );
   }

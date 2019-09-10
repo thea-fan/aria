@@ -28,9 +28,9 @@ class ItemList extends React.Component {
         });
         return (
             <div className = {`pt-3 ${styles.rounded}`}>
-              <div className = {`mt-2 mx-2 d-flex flex-column align-items-center ${styles.yscroll}`}>
+                <div className = {`mt-2 mx-2 d-flex flex-column align-items-center ${styles.yscroll}`}>
                 {listItems}
-              </div>
+                </div>
             </div>
         )
     }

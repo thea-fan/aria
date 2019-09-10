@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.scss';
-import TodoItem from '../todoItem/todoItem';
+
 
 //------------------------COMPONENT-----------------------------
 
@@ -11,7 +11,7 @@ render() {
         let doneItems = [];
         let pendingItems = [];
 
-        let listItems = this.props.todoList.map(item => {
+        this.props.todoList.map(item => {
             if (item.checked) {
                 doneItems.push(item)
             } else if (!item.checked){
@@ -31,7 +31,7 @@ render() {
             <p className = {`mb-4 px-2 ${styles.interim}`} style={
                 {display: !this.props.recording?
                 (this.props.listening? "block":"none")  :"none"}}>
-                Say <big><b>"Hello Aria"</b></big> to start recording
+                Say <big><b>&quot Hello Aria &quot</b></big> to start recording
             </p>
             <div className = {`my-3 px-2 ${styles.interim}`} style={
                 {display: this.props.recording?
@@ -53,7 +53,6 @@ render() {
                 <p> You have {pendingItems.length} focuses. </p>
                 <p> Out of {pendingItems.length}, you have accomplished {doneItems.length}. </p>
             </div>
-
         </div>
         )
     }

@@ -4,9 +4,11 @@ import styles from './style.scss';
 import classNames from 'classnames/bind';
 var cx = classNames.bind(styles);
 
+
 //------------------------COMPONENT-----------------------------
 
 class Navbar extends React.Component {
+
     constructor() {
         super();
         this.state = {
@@ -39,17 +41,18 @@ class Navbar extends React.Component {
     })
 
         return (
-            <nav className="navbar fixed-bottom p-0">
+            <nav className="navbar fixed-bottom p-0 justify-content-around">
                 <div className = {className}
-                style={{backgroundImage: this.props.recording? "url('https://image.flaticon.com/icons/svg/1361/1361878.svg')" : "url('https://image.flaticon.com/icons/svg/1361/1361730.svg')",
-                        width: this.props.recording? '5.5rem' : '2.5rem',
-                        height: this.props.recording? '5.5rem' : '2.5rem'
-                    }}
-                onClick={this.clickHandler}></div>
+                    style={{backgroundImage: this.props.recording? "url('https://image.flaticon.com/icons/svg/1361/1361878.svg')" : "url('https://image.flaticon.com/icons/svg/1361/1361730.svg')",
+                            width: this.props.recording? '5.5rem' : '2.5rem',
+                            height: this.props.recording? '5.5rem' : '2.5rem'
+                        }}
+                    onClick={this.clickHandler}>
+                </div>
                 <div className="nav nav-tabs border-bottom-0 ml-1" id="nav-tab" role="tablist">
                     <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-home" role="tab" aria-selected="true">Home
                     </a>
-                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-focuses" role="tab" aria-selected="true">Focuses
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-focuses" role="tab" aria-selected="false">Focuses
                     </a>
                     <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-accomplished" role="tab" aria-selected="false">Accomplished
                     </a>

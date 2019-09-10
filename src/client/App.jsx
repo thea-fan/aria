@@ -1,7 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import styles from './style.scss';
-import { Route, Link } from "react-router-dom";
 import moment from 'moment';
 
 let localStorage = [];
