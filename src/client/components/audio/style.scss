@@ -20,10 +20,6 @@
   padding-top:1px;
 }
 
-.controls {
-  text-align: center;
-}
-
 .record {
 	width: 2.5rem;
 	height:2.5rem;
@@ -62,4 +58,20 @@
       box-shadow: 0 0 0 0 rgba(224, 108, 99, 0);
       transform: scale(1);
   }
+}
+
+.audiotitle{
+	width: 280px;
+	text-align: start;
+	color: #66639a;
+}
+
+.audioInfo{
+	width: 280px;
+	text-align: start;
+	color: #8a8a8a;
+	.trashicon{
+		font-size: initial;
+    color: indianred;
+	}
 }

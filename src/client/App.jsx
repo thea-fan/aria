@@ -242,6 +242,7 @@ class App extends React.Component {
     }
 
     removeItem(index) {
+        alert('Are you sure you want to delete this?')
         let todoList = this.state.todoList;
         todoList.splice(index, 1);
         this.setState({todoList: todoList}, () => {
@@ -265,8 +266,7 @@ class App extends React.Component {
     }
 
     removeAudio(index){
-        console.log("removeAudio", this.state)
-        console.log(this.state.audioInfo)
+        alert('Are you sure you want to delete this?')
         let audioInfo = this.state.audioInfo;
         audioInfo.splice(index, 1);
         this.setState({audioInfo: audioInfo}, () => {

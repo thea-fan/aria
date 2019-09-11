@@ -56,6 +56,7 @@ class Audio extends React.Component {
                   recorder.stop();
                   recordButton.innerText = 'Record';
                 }
+
               });
             } catch {
               alert(
@@ -83,6 +84,7 @@ class Audio extends React.Component {
 
                   var mediaFile = {
                     fileUrl: blobUrl,
+                    name: "Recording-"+(reactComponent.props.audioInfo.length+1).toString(),
                     size: blob.size,
                     type: blob.type,
                     src: base64FileData
@@ -99,17 +101,19 @@ class Audio extends React.Component {
 
 
   render() {
-    console.log(this.props.audioInfo);
     let recordings;
 
     if (this.props.audioInfo.length > 0){
         recordings = this.props.audioInfo.map((item, index) => {
-
-    console.log({index});
         return(
-            <div key = {index}>
+
+            <div key = {index} className = "my-1 d-flex flex-column align-items-center">
+                <p className = {`m-0 pb-1 font-weight-bold ${styles.audiotitle}`}> {item.fileURL.name} </p>
                 <audio className = "my-1" src = {item.fileURL.src} controls = "controls"/>
-                <i className='p-0 bx bx-trash' onClick={() => {this.props.removeAudio(index)}}></i>
+                <small className = {styles.audioInfo}>{item.created_at}
+                    <i className={`p-0 bx bx-trash ${styles.trashicon}`} onClick={() => {this.props.removeAudio(index)}}></i>
+                    <hr/>
+                </small>
             </div>
         )
     })
@@ -124,7 +128,7 @@ class Audio extends React.Component {
 
     return (
       <div className = {`pt-3 ${styles.rounded}`}>
-          <div className="controls">
+          <div>
             <div className={` rounded-circle mx-auto my-2 ${styles.record}`} id="mic"></div>
             <div className={` rounded-circle mx-auto my-1 ${styles.recording}`} id="record" hidden></div>
           </div>

@@ -36,6 +36,25 @@
 	color: #6d2466;
 }
 
+.itemdiv{
+	height: 8rem;
+	width: 40%;
+	border-radius:30px;
+	box-shadow: 6px 6px 5px -2px #dcdcdc8a;
+}
+
+.audiodiv{
+	height: 8rem;
+  width: 88%;
+  border-radius: 30px;
+  box-shadow: 6px 6px 5px -2px #dcdcdc8a;
+  background-image: linear-gradient(to bottom, #fffffff7 20%, #ffffff59 80%);
+}
+
+.iconstyle{
+	font-size: 4rem;
+	color: #7673ad;
+}
 
 .bars {
     display: flex;

@@ -6,6 +6,30 @@ import styles from './style.scss';
 //------------------------COMPONENT-----------------------------
 
 class Home extends React.Component {
+
+    constructor() {
+        super();
+        this.audioTab = this.audioTab.bind(this);
+    }
+
+    doneTab(e){
+        e.preventDefault();
+        $('#nav-tab a:nth-child(2)').tab('show');
+    }
+
+    focusTab(e){
+        e.preventDefault();
+        $('#nav-tab a:nth-child(3)').tab('show');
+    }
+
+
+    audioTab(e){
+        e.preventDefault();
+        $('#nav-tab a:nth-child(4)').tab('show');
+    }
+
+
+
 render() {
 
         let doneItems = [];
@@ -18,6 +42,25 @@ render() {
                 pendingItems.push(item);
             }
         });
+
+        let focuses;
+        let focusFn = (array) =>{
+            if (array.length >1){
+                return focuses = "focuses"
+            } else{
+                return focuses = "focus"
+            }
+        }
+
+        let pendingStats = (
+            <p className = "mb-1"> You have {pendingItems.length} {focusFn(pendingItems)} left.</p>
+        )
+
+        let doneStats = (
+            <p className = "mb-1"> Out of {this.props.todoList.length} {focusFn(this.props.todoList)}, you have accomplished {doneItems.length}.</p>
+        )
+
+
 
         return (
             <div className = {`${styles.header}`}>
@@ -50,8 +93,18 @@ render() {
                 </div>
             </div>
             <div className = {`pt-3 ${styles.rounded}`}>
-                <p> You have {pendingItems.length} focuses. </p>
-                <p> Out of {pendingItems.length}, you have accomplished {doneItems.length}. </p>
+                <div className = "my-2">
+                {pendingStats}
+                {doneStats}
+                </div>
+
+                <div className = "my-2 row justify-content-center">
+                    <div className = {`mx-1 d-flex align-items-center justify-content-center ${styles.itemdiv}`} onClick = {this.focusTab}><i className={`bx bx-list-ul ${styles.iconstyle}`}></i></div>
+                    <div className = {` mx-1 d-flex align-items-center justify-content-center ${styles.itemdiv}`}><i className={`bx bx-list-check ${styles.iconstyle}`} onClick = {this.doneTab}></i></div>
+                </div>
+                    <div className = {`ml-4 d-flex align-items-center justify-content-center ${styles.audiodiv}`} onClick = {this.audioTab}>
+                        <i className={`bx bx-voicemail ${styles.iconstyle}`}></i>
+                    </div>
             </div>
         </div>
         )
