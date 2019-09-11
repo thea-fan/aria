@@ -14,18 +14,18 @@ class Home extends React.Component {
 
     doneTab(e){
         e.preventDefault();
-        $('#nav-tab a:nth-child(2)').tab('show');
+        $('#nav-tab a:nth-child(3)').tab('show');
     }
 
     focusTab(e){
         e.preventDefault();
-        $('#nav-tab a:nth-child(3)').tab('show');
+        $('#nav-tab a:nth-child(4)').tab('show');
     }
 
 
     audioTab(e){
         e.preventDefault();
-        $('#nav-tab a:nth-child(4)').tab('show');
+        $('#nav-tab a:nth-child(5)').tab('show');
     }
 
 

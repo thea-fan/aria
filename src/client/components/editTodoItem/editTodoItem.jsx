@@ -44,7 +44,7 @@ class EditTodoItem extends React.Component {
         return (
             <form className="edit-form">
                 <input type="text" value={this.state.word} onChange={this.validate}></input>
-                <button type="submit" onClick={this.updateItem}>Update</button>
+                <button type="submit" onClick={this.updateItem}></button>
                 {errorMessage}
             </form>
         )
