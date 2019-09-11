@@ -51,10 +51,8 @@ class Audio extends React.Component {
               recordButton.addEventListener('click', () => {
                 if (recorder.state === 'inactive') {
                   recorder.start();
-                  recordButton.innerText = 'Stop';
                 } else {
                   recorder.stop();
-                  recordButton.innerText = 'Record';
                 }
 
               });

@@ -303,14 +303,15 @@ class App extends React.Component {
             <div style={
                 {display: !this.state.recording? "block":"none"}}
                 className="tab-content" id="nav-tabContent">
-                <div className="tab-pane fade show active" id="nav-home" role="tabpanel" >
+                <div className="tab-pane fade show active" id="nav-landing" role="tabpanel" >
+                </div>
+                <div className="tab-pane fade" id="nav-home" role="tabpanel" >
                     <Home
                         recording = {this.state.recording}
                         listening = {this.state.listening}
                         todoList = {this.state.todoList}>
                     </Home>
                 </div>
-
                 <div className="tab-pane fade" id="nav-focuses" role="tabpanel" >
                     <Header
                         recording = {this.state.recording}
@@ -326,8 +327,6 @@ class App extends React.Component {
                         removeItem = {this.removeItem}>
                     </ItemList>
                 </div>
-
-
                 <div className="tab-pane fade" id="nav-accomplished" role="tabpanel" >
                     <Header
                         recording = {this.state.recording}

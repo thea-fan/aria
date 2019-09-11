@@ -49,3 +49,32 @@
   text-decoration: none !important;
   background-image: linear-gradient(to bottom, #f1eaff85 20%, #d8c7f3fa 80%);
 }
+
+
+.landing{
+	height: 90vh;
+	background-image: url('https://i.ibb.co/F7mg2BM/photo-1554260570-83dc2f46ef79-removebg-preview.png');
+	background-size: contain;
+	background-position: bottom;
+}
+
+.spacer{
+	visibility: hidden;
+}
+
+.tagline{
+	margin-top: 2rem;
+	margin-bottom: 0;
+	color: #634f80;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.enter{
+	margin-top: 0.5rem;
+	color: #903bb1;
+  border: 1px solid #ac90d6;
+  border-radius: 5px;
+  background-color: #fdf5ffe0;
+  box-shadow: 7px 7px 7px -2px #c69fd6a1;
+}
