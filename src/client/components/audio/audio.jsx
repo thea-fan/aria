@@ -70,7 +70,6 @@ class Audio extends React.Component {
     renderRecording(blob) {
 
         const blobUrl = URL.createObjectURL(blob);
-
         let reactComponent = this
 
         fetch(blobUrl)
@@ -90,7 +89,8 @@ class Audio extends React.Component {
                   };
 
                   reactComponent.setState({audioInfo: mediaFile});
-                  reactComponent.props.addAudio(event, reactComponent.state.audioInfo)
+                  reactComponent.props.addAudio(event, reactComponent.state.audioInfo);
+
                 })
                 reader.readAsDataURL(blob);
             })
@@ -99,14 +99,17 @@ class Audio extends React.Component {
 
 
   render() {
-
+    console.log(this.props.audioInfo);
     let recordings;
 
     if (this.props.audioInfo.length > 0){
         recordings = this.props.audioInfo.map((item, index) => {
+
+    console.log({index});
         return(
             <div key = {index}>
                 <audio className = "my-1" src = {item.fileURL.src} controls = "controls"/>
+                <i className='p-0 bx bx-trash' onClick={() => {this.props.removeAudio(index)}}></i>
             </div>
         )
     })
@@ -138,5 +141,6 @@ export default Audio;
 
 Audio.propTypes = {
   audioInfo: PropTypes.array,
-  addAudio: PropTypes.func
+  addAudio: PropTypes.func,
+  removeAudio: PropTypes.func
 };

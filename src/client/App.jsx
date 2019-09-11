@@ -60,6 +60,7 @@ class App extends React.Component {
         this.updateItem = this.updateItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
         this.addAudio = this.addAudio.bind(this);
+        this.removeAudio = this.removeAudio.bind(this);
     }
 
     componentDidMount() {
@@ -263,6 +264,16 @@ class App extends React.Component {
             })
     }
 
+    removeAudio(index){
+        console.log("removeAudio", this.state)
+        console.log(this.state.audioInfo)
+        let audioInfo = this.state.audioInfo;
+        audioInfo.splice(index, 1);
+        this.setState({audioInfo: audioInfo}, () => {
+            window.localStorage.setItem("audioInfo", JSON.stringify(this.state.audioInfo))
+        })
+    }
+
 
   render() {
 
@@ -272,8 +283,6 @@ class App extends React.Component {
         <Bckground
             recording = {this.state.recording}>
          </Bckground>
-
-
 
 
         <div className = "col-12">
@@ -342,8 +351,11 @@ class App extends React.Component {
                         finalText = {this.state.finalText}>
                     </Header>
                     <Audio
+                        recording = {this.state.recording}
+                        listening = {this.state.listening}
                         audioInfo = {this.state.audioInfo}
-                        addAudio = {this.addAudio}>
+                        addAudio = {this.addAudio}
+                        removeAudio = {this.removeAudio}>
                     </Audio>
                 </div>
             </div>

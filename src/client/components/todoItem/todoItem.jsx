@@ -50,8 +50,8 @@ class TodoItem extends React.Component {
                 <div className = "col-10 pl-4 pr-0 my-2">
                     {itemDisplay}
                     <small>{item.created_at}</small>
-                    <button className = "mx-1 p-0" onClick={() => {this.props.editItem(index)}}><i className='bx bx-edit-alt' ></i></button>
-                    <button className = "p-0" onClick={() => {this.props.removeItem(index)}}><i className='bx bx-trash' ></i></button>
+                    <i className='mx-1 p-0 bx bx-edit-alt' onClick={() => {this.props.editItem(index)}}></i>
+                    <i className='p-0 bx bx-trash' onClick={() => {this.props.removeItem(index)}}></i>
                 </div>
                 <div className = "col-1 d-flex justify-content-center align-items-center">
                     {checkboxClass}

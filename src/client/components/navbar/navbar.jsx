@@ -13,9 +13,12 @@ class Navbar extends React.Component {
         super();
         this.state = {
             listeningAnimation: "",
-            microphone: "microphone"
+            microphone: "microphone",
+            audioTab: false
         }
         this.clickHandler = this.clickHandler.bind(this);
+        this.audioTabHandler = this.audioTabHandler.bind(this);
+        this.notAudioTab = this.notAudioTab.bind(this);
     }
 
     animation(){
@@ -31,6 +34,14 @@ class Navbar extends React.Component {
         this.animation()
     }
 
+    audioTabHandler() {
+        this.setState({audioTab: true})
+    }
+
+    notAudioTab() {
+        this.setState({audioTab: false})
+    }
+
 
   render() {
 
@@ -39,24 +50,26 @@ class Navbar extends React.Component {
         listeningAnimation: this.state.listeningAnimation,
         'mx-auto rounded-circle': true
     })
+    console.log(this.state.audioTab);
 
         return (
             <nav className="navbar fixed-bottom p-0 justify-content-around">
                 <div className = {className}
-                    style={{backgroundImage: this.props.recording? "url('https://image.flaticon.com/icons/svg/1361/1361878.svg')" : "url('https://image.flaticon.com/icons/svg/1361/1361730.svg')",
+                    style={{display: this.state.audioTab? 'none':'block',
+                            backgroundImage: this.props.recording? "url('https://image.flaticon.com/icons/svg/1361/1361878.svg')" : "url('https://image.flaticon.com/icons/svg/1361/1361730.svg')",
                             width: this.props.recording? '5.5rem' : '2.5rem',
                             height: this.props.recording? '5.5rem' : '2.5rem'
                         }}
                     onClick={this.clickHandler}>
                 </div>
                 <div className="nav nav-tabs border-bottom-0 ml-1" id="nav-tab" role="tablist">
-                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-home" role="tab" aria-selected="true">Home
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-home" role="tab" aria-selected="true" onClick={this.notAudioTab}>Home
                     </a>
-                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-focuses" role="tab" aria-selected="false">Focuses
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-focuses" role="tab" aria-selected="false" onClick={this.notAudioTab}>Focuses
                     </a>
-                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-accomplished" role="tab" aria-selected="false">Accomplished
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-accomplished" role="tab" aria-selected="false" onClick={this.notAudioTab}>Accomplished
                     </a>
-                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-audio" role="tab" aria-selected="false">Audio
+                    <a className={`nav-item font-weight-bold ${styles.rounded} ${styles.tab}`} data-toggle="tab" href="#nav-audio" role="tab" aria-selected="false" onClick={this.audioTabHandler}>Audio
                     </a>
                 </div>
             </nav>

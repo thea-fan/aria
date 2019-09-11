@@ -19,7 +19,7 @@ class Header extends React.Component {
             <div className = {`my-3 px-2 ${styles.interim}`} style={
                 {display: !this.props.recording?
                 (this.props.listening? "block":"none")  :"none"}}>
-                    Say <big><b>&quot Hello Aria &quot</b></big> to start recording
+                    Say <big><b>"Hello Aria"</b></big> to start recording
             </div>
             <div className = {`my-3 px-2 ${styles.interim}`} style={
                 {display: this.props.recording?
