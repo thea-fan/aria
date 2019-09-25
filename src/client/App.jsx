@@ -39,16 +39,10 @@ class App extends React.Component {
           editing: false,
           todoList:[
             {
-                text: "Hi this is first attempt",
-                created_at: "4 Sep, 5:29 pm",
-                updated_at: "4 Sep, 5:29 pm",
+                text: "Demo attempt",
+                created_at: "24 Sep, 5:29 pm",
+                updated_at: "24 Sep, 5:29 pm",
                 checked: false
-            },
-            {
-                text: "second attempt",
-                created_at: "5 Sep, 12:29 pm",
-                updated_at: "5 Sep, 12:29 pm",
-                checked: true
             }
           ],
           audioInfo:[]
