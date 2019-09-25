@@ -91,11 +91,16 @@ class Navbar extends React.Component {
                 </nav>
                 <div style = {{display: this.state.landingPg?'block':'none'}}
                     className="tab-pane fade show active" id="nav-landing" role="tabpanel">
-                    <div className = {styles.landing}>
-                        <p className = {styles.spacer}> Entddafhldajhflfadfadfhjlahdflhakjhdfaajkhdfjlhaldshfljahlher
-                        </p>
-                        <p className = {styles.tagline}>Your voice. Your notes. </p>
-                        <button className = {styles.enter} onClick={this.inHome}> Enter </button>
+                    <div className = "row mt-5">
+                        <div className ={`col-lg-6 ${styles.landing}`}>
+                        </div>
+                        <div className = "col-lg-4">
+                            <p className = {styles.rootlogo}> aria </p>
+                            <p className = {styles.tagline}>Your voice. Your notes. </p>
+                            <p className = {`mt-3 mx-auto ${styles.description}`}>Voice is the next typing. <br/><br/>So be it a reflection or a to-do task for the next day, you can count on Aria when it is only you and your phone in the dark.
+                            </p>
+                            <button className = {styles.enter} onClick={this.inHome}> Enter </button>
+                        </div>
                     </div>
                 </div>
             </div>
