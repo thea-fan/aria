@@ -44,7 +44,7 @@ https://aria-voice.herokuapp.com
 
 
 # Wireframes
-![alt_text](https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjY85208_3kAhXTdn0KHfj2AdEQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.petmd.com%2Fdog%2Fcare%2Fevr_dg_defining_senior_age_in_dogs&psig=AOvVaw0SKbr-ROyVr5cPyvKUkFxy&ust=1570116903083542)
+![alt_text](https://dl.dropbox.com/s/pt7mrl9p0jvjzvr/aria-wireframe.png?dl=0)
 
 # Presentation file
 https://docs.google.com/presentation/d/1Lda2H3SgGJrE93XooxS8RDL5EfEOCanp4jFhfoVKUfQ/edit?usp=sharing
