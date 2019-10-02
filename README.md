@@ -44,7 +44,7 @@ https://aria-voice.herokuapp.com
 
 
 # Wireframes
-![alt_text](https://www.dropbox.com/s/pt7mrl9p0jvjzvr/aria-wireframe.png?dl=0)
+![alt_text](https://www.dl.dropbox.com/s/pt7mrl9p0jvjzvr/aria-wireframe.png?dl=0)
 
 # Presentation file
 https://docs.google.com/presentation/d/1Lda2H3SgGJrE93XooxS8RDL5EfEOCanp4jFhfoVKUfQ/edit?usp=sharing
